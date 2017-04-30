@@ -10,7 +10,7 @@ var matrixClient = matrixSdk.createClient({
     userId: twinkUserId
 })
 
-// Respond to messages that contain the word "Twink"
+// Respond to messages
 matrixClient.once('sync', function(state, prevState) {
   if (state === 'PREPARED') {
     matrixClient.on("Room.timeline", function(event, room, toStartOfTimeline) {
@@ -20,6 +20,17 @@ matrixClient.once('sync', function(state, prevState) {
       if (event.getType() !== "m.room.message") {
         return; // Only respond to normal messages
       }
+
+      // Respond to messages that contain the word "recipe"
+      if (event.getContent().body.match(/recipe/i)) {
+        matrixClient.sendMessage(room.roomId, {
+          "msgtype": "m.text",
+          "body": "http://lmgtfy.com/?s=d&q=vegan+dinner+recipes"
+        })
+        return // halt execution
+      }
+
+      // Respond to messages that contain the word "Twink"
       var phrases = [
         "Hello world!",
         "Who goes there?",
@@ -37,31 +48,6 @@ matrixClient.once('sync', function(state, prevState) {
     })
   }
 })
-
-// Respond to messages that contain the word "recipe"
-matrixClient.once('sync', function(state, prevState) {
-  if(state === 'PREPARED') {
-    matrixClient.on("Room.timeline", function(event, room, toStartOfTimeline) {
-      if (toStartOfTimeline || event.getSender() === twinkUserId) {
-        return; // Ignore Twink's own messages
-      }
-      if (event.getType() !== "m.room.message") {
-        return; // Only respond to normal messages
-      }
-      var phrases = [
-        "http://lmgtfy.com/?s=d&q=vegan+dinner+recipes",
-      ]
-      if (event.getContent().body.match(/\brecipe\b/i)) {
-        var phrase = phrases[Math.floor(Math.random() * phrases.length)]
-        matrixClient.sendMessage(room.roomId, {
-          "msgtype": "m.text",
-          "body": phrase
-        })
-      }
-    })
-  }
-})
-
 
 // Scheduled messages to remind us to do chores
 
