@@ -9,6 +9,12 @@ var matrixClient = matrixSdk.createClient({
     userId: '@twink:matrix.org'
 })
 
+// Make Twink announce his presence during a push/reboot so we know he's still working.
+matrixClient.sendMessage(uptwinklesRoomId, {
+  "msgtype": "m.text",
+  "body": "I am alive."
+})
+
 schedule.scheduleJob({dayOfWeek: 1, hour: 9, minute: 0}, function() {
   matrixClient.sendMessage(uptwinklesRoomId, {
     "msgtype": "m.text",
