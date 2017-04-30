@@ -38,6 +38,31 @@ matrixClient.once('sync', function(state, prevState) {
   }
 })
 
+// Respond to messages that contain the word "recipe"
+matrixClient.once('sync', function(state, prevState) {
+  if(state === 'PREPARED') {
+    matrixClient.on("Room.timeline", function(event, room, toStartOfTimeline) {
+      if (toStartOfTimeline || event.getSender() === twinkUserId) {
+        return; // Ignore Twink's own messages
+      }
+      if (event.getType() !== "m.room.message") {
+        return; // Only respond to normal messages
+      }
+      var phrases = [
+        "http://lmgtfy.com/?s=d&q=vegan+dinner+recipes",
+      ]
+      if (event.getContent().body.match(/\brecipe\b/i)) {
+        var phrase = phrases[Math.floor(Math.random() * phrases.length)]
+        matrixClient.sendMessage(room.roomId, {
+          "msgtype": "m.text",
+          "body": phrase
+        })
+      }
+    })
+  }
+})
+
+
 // Scheduled messages to remind us to do chores
 
 schedule.scheduleJob({dayOfWeek: 1, hour: 9, minute: 0}, function() {
