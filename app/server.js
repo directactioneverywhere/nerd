@@ -30,7 +30,7 @@ schedule.scheduleJob({hour: 19, minute: 0}, function() {
   })
 })
 
-schedule.scheduleJob({dayOfWeek: 6, hour: 20, minute: 0}, function() {
+schedule.scheduleJob({dayOfWeek: 0, hour: 20, minute: 0}, function() {
   matrixClient.sendMessage(uptwinklesRoomId, {
     "msgtype": "m.text",
     "body": "Don't forget to take out the trash!"
