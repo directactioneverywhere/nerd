@@ -10,12 +10,6 @@ var matrixClient = matrixSdk.createClient({
     userId: twinkUserId
 })
 
-// Make Twink announce his presence during a push/reboot so we know he's still working.
-matrixClient.sendMessage(uptwinklesRoomId, {
-  "msgtype": "m.text",
-  "body": "I am alive."
-})
-
 // Respond to messages that contain the word "Twink"
 matrixClient.once('sync', function(state, prevState) {
   if(state === 'PREPARED') {
@@ -80,3 +74,9 @@ schedule.scheduleJob({dayOfWeek: 1, hour: 10, minute: 0}, function() {
 })
 
 matrixClient.startClient()
+
+// Make Twink announce his presence during a push/reboot so we know he's still working.
+matrixClient.sendMessage(uptwinklesRoomId, {
+  "msgtype": "m.text",
+  "body": "I am alive."
+})
