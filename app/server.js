@@ -58,10 +58,18 @@ schedule.scheduleJob({dayOfWeek: 1, hour: 9, minute: 0}, function() {
   })
 })
 
+var dinnerSuggestions = [
+  "tiki masala chickpeas over rice",
+  "tacos",
+  "something with a lot of tomatoes",
+  "tofu scramble",
+  "pasta"
+]
 schedule.scheduleJob({hour: 16, minute: 0}, function() {
+  var dinnerSuggestion = dinnerSuggestions[Math.floor(Math.random() * dinnerSuggestions.length)]
   matrixClient.sendMessage(uptwinklesRoomId, {
     "msgtype": "m.text",
-    "body": "What's for dinner tonight, and who's cooking?"
+    "body": `What's for dinner tonight, and who's cooking? I suggest ${dinnerSuggestion}!`
   })
 })
 
