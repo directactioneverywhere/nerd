@@ -12,7 +12,7 @@ var matrixClient = matrixSdk.createClient({
 
 // Respond to messages that contain the word "Twink"
 matrixClient.once('sync', function(state, prevState) {
-  if(state === 'PREPARED') {
+  if (state === 'PREPARED') {
     matrixClient.on("Room.timeline", function(event, room, toStartOfTimeline) {
       if (toStartOfTimeline || event.getSender() === twinkUserId) {
         return; // Ignore Twink's own messages
@@ -37,6 +37,8 @@ matrixClient.once('sync', function(state, prevState) {
     })
   }
 })
+
+// Scheduled messages to remind us to do chores
 
 schedule.scheduleJob({dayOfWeek: 1, hour: 9, minute: 0}, function() {
   matrixClient.sendMessage(uptwinklesRoomId, {
