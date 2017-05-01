@@ -1,0 +1,31 @@
+{
+  "reminders": [
+    {
+      "frequency": { "dayOfWeek": 1, "hour": 9, "minute": 0 },
+      "message": "Morning, comrades! It's that time of the week again. Be sure to check the whiteboard for your chore assignments. If no one has updated it, please update it."
+    }, {
+      "frequency": { "hour": 16, "minute": 0 },
+      "message": "What's for dinner tonight, and who's cooking? I suggest %s!",
+      "preprocessor": "dinnerSuggestion"
+    }, {
+      "frequency": { "hour": 19, "minute": 0 },
+      "message": "Time to do the dishes!"
+    }, {
+      "frequency": { "dayOfWeek": 0, "hour": 20, "minute": 0 },
+      "message": "Don't forget to take out the trash!"
+    }, {
+      "frequency": { "dayOfWeek": 1, "hour": 10, "minute": 0 },
+      "message": "Don't forget to take in the trash!"
+    }
+  ],
+  "responses": [
+    {
+      "trigger": "recipe",
+      "message": "http://lmgtfy.com/?s=d&q=vegan+dinner+recipes"
+    }, {
+      "trigger": "\\bTwink\\b",
+      "message": "%s",
+      "preprocessor": "greeting"
+    }
+  ]
+}
