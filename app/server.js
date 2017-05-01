@@ -49,7 +49,7 @@ twink.onMessage(function(roomId, message) {
 })
 
 // Set chore reminders
-twink.remind({ "dayOfWeek": 1, "hour": 9, "minute": 0 },
+twink.remind({ "dayOfWeek": 1, "hour": 7, "minute": 30 },
   "Morning, comrades! It's that time of the week again. Be sure to check the whiteboard for your chore assignments. If no one has updated it, please update it."
 )
 
