@@ -9,6 +9,8 @@
 
 const twink      = require("./twink")
 const randomItem = require("random-item")
+const schedule   = require("node-schedule")
+const request    = require("request")
 
 /*******************************************************************************
 * Store some values to shuffle through
@@ -54,23 +56,36 @@ twink.onMessage(function(roomId, message) {
 
 })
 
-// Set chore reminders
-twink.remind({ "dayOfWeek": 1, "hour": 7, "minute": 30 },
-  "Morning, comrades! It's that time of the week again. Be sure to check the whiteboard for your chore assignments. If no one has updated it, please update it."
-)
+// Monday morning schedule reminder
+schedule.scheduleJob({ "dayOfWeek": 1, "hour": 7, "minute": 30 }, function() {
+  request('https://api.uptwinkles.org/chores/now', function(error, response, body) {
+    if (!error && response.statusCode == 200) {
+      var chores = JSON.parse(body)
+      var message = "Morning, comrades! It's that time of the week again. Here are your newly assigned chores:\n"
+      for (var chore of chores) {
+        message += `\n${chore.person} is assigned to ${chore.chore}.`
+      }
+      twink.send(message)
+    } else {
+      twink.send(`Morning, comrades! It's that time of the week again. Please get together to figure out your weekly chores. I tried to find them for you, but I got an error. [${response.statusCode}]`)
+    }
+  })
+})
 
+// Cooking dinner
 twink.remind({ "hour": 16, "minute": 0 },
   `What's for dinner tonight, and who's cooking? I suggest ${randomItem(dinnerSuggestions)}!`
 )
 
+// Doing dishes
 twink.remind({ "hour": 19, "minute": 0 },
   "Time to do the dishes!"
 )
 
+// Taking the trash out and back in
 twink.remind({ "dayOfWeek": 0, "hour": 20, "minute": 0 },
   "Don't forget to take out the trash!"
 )
-
 twink.remind({ "dayOfWeek": 1, "hour": 10, "minute": 0 },
   "Don't forget to take in the trash!"
 )
