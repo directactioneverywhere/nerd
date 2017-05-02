@@ -20,9 +20,16 @@ var matrixClient = matrixSdk.createClient({
 
 // Messages the Uptwinkles room
 function sendToRoom(roomId, message) {
-  matrixClient.sendMessage(roomId, {
-    "msgtype": "m.text",
-    "body": message
+  // 2 second delay in messages so it shows Twink "typing"
+  const typingTime = 2000
+  matrixClient.sendTyping(roomId, true, typingTime, function() {
+    setTimeout(function() {
+      matrixClient.sendMessage(roomId, {
+        "msgtype": "m.text",
+        "body": message
+      })
+      matrixClient.sendTyping(roomId, false)
+    }, typingTime)
   })
 }
 
