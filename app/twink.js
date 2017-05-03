@@ -18,7 +18,7 @@ var matrixClient = matrixSdk.createClient({
 * Core functions
 *******************************************************************************/
 
-// Messages the Uptwinkles room
+// Messages any Matrix room
 function sendToRoom(roomId, message) {
   // 2 second delay in messages so it shows Twink "typing"
   const typingTime = 2000
@@ -33,9 +33,16 @@ function sendToRoom(roomId, message) {
   })
 }
 
-// Messages any Matrix room
+// Messages the Uptwinkles room
 function send(message) {
   sendToRoom(uptwinklesRoomId, message)
+}
+
+// Joins any Matrix room
+function joinRoom(roomId) {
+  matrixClient.joinRoom(roomId).done(function() {
+    sendToRoom(roomId, "Hello world!")
+  })
 }
 
 // Provides a callback to handle incoming messages
@@ -51,6 +58,15 @@ function onMessage(callback) {
         }
         callback(room.roomId, event.getContent().body)
       })
+    }
+  })
+}
+
+// Provides a callback to handle room invitations
+function onInvited(callback) {
+  matrixClient.on("RoomMember.membership", function(event, member) {
+    if (member.membership === "invite" && member.userId === twinkUserId) {
+      callback(member.roomId)
     }
   })
 }
@@ -79,5 +95,7 @@ module.exports = {
   remind: remind,
   send: send,
   sendToRoom: sendToRoom,
+  onInvited: onInvited,
+  joinRoom: joinRoom,
   start: start
 }

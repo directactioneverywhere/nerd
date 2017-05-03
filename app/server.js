@@ -64,6 +64,11 @@ twink.onMessage(function(roomId, message) {
 
 })
 
+// Automatically join rooms when invited
+twink.onInvited(function(roomId) {
+  twink.joinRoom(roomId)
+})
+
 // Monday morning schedule reminder
 schedule.scheduleJob({ "dayOfWeek": 1, "hour": 7, "minute": 30 }, function() {
   request('https://api.uptwinkles.org/chores/now', function(error, response, body) {
