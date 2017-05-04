@@ -71,8 +71,10 @@ twink.onInvited(function(roomId) {
 
 // Monday morning schedule reminder
 schedule.scheduleJob({ "dayOfWeek": 1, "hour": 7, "minute": 30 }, function() {
+  // Grab the current chores list from the API
   request('https://api.uptwinkles.org/chores/now', function(error, response, body) {
     if (!error && response.statusCode == 200) {
+      // If there wasn't an error, generate and send the message
       var chores = JSON.parse(body)
       var message = "Morning, comrades! It's that time of the week again. Here are your newly assigned chores:\n"
       for (var chore of chores) {
@@ -80,6 +82,7 @@ schedule.scheduleJob({ "dayOfWeek": 1, "hour": 7, "minute": 30 }, function() {
       }
       twink.send(message)
     } else {
+      // Message to send if the API didn't work
       twink.send(`Morning, comrades! It's that time of the week again. Please get together to figure out your weekly chores. I tried to find them for you, but I got an error. [${response.statusCode}]`)
     }
   })
