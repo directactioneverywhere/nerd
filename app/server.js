@@ -29,13 +29,18 @@ var greetings = [
 ]
 
 var dinnerSuggestions = [
+  "rice with tempeh and peanut sauce",
+  "tempeh stir fry",
   "tiki masala chickpeas over rice",
   "tacos",
-  "something with a lot of tomatoes",
   "tofu scramble",
-  "pasta",
+  "bananas",
+  "chickpeas and rice with tahini sauce",
+  "pasta with lemon butter sauce",
   "pizza",
-  "tofu stir fry"
+  "veggie burgers",
+  "tofu stir fry",
+  "pasta salad"
 ]
 
 /*******************************************************************************
