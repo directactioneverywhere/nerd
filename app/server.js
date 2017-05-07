@@ -28,21 +28,6 @@ var greetings = [
   "Life is full of pain."
 ]
 
-var dinnerSuggestions = [
-  "rice with tempeh and peanut sauce",
-  "tempeh stir fry",
-  "tiki masala chickpeas over rice",
-  "tacos",
-  "tofu scramble",
-  "bananas",
-  "chickpeas and rice with tahini sauce",
-  "pasta with lemon butter sauce",
-  "pizza",
-  "veggie burgers",
-  "tofu stir fry",
-  "pasta salad"
-]
-
 /*******************************************************************************
 * Twink main chat logic
 *******************************************************************************/
@@ -88,15 +73,22 @@ schedule.scheduleJob({ "dayOfWeek": 1, "hour": 7, "minute": 30 }, function() {
       twink.send(message)
     } else {
       // Message to send if the API didn't work
-      twink.send(`Morning, comrades! It's that time of the week again. Please get together to figure out your weekly chores. I tried to find them for you, but I got an error. [${response.statusCode}]`)
+      twink.send(`Morning, comrades! It's that time of the week again. Please get together to figure out your weekly chores. I tried to assign you but I got a ${response.statusCode} error from the API. :(`)
     }
   })
 })
 
 // Cooking dinner
-twink.remind({ "hour": 16, "minute": 0 },
-  `What's for dinner tonight, and who's cooking? I suggest ${randomItem(dinnerSuggestions)}!`
-)
+schedule.scheduleJob({ "hour": 16, "minute": 0 }, function() {
+  request('https://api.uptwinkles.org/dinner', function(error, response, body) {
+    if (!error && response.statusCode == 200) {
+      let data = JSON.parse(body)
+      twink.send(`What's for dinner tonight, and who's cooking? Would ${data.person} be willing to cook ${data.dinner}?`)
+    } else {
+      twink.send(`What's for dinner tonight, and who's cooking? BTW, I got a ${response.statusCode} error from the API, plz advise!`)
+    }
+  })
+})
 
 // Doing dishes
 twink.remind({ "hour": 19, "minute": 0 },
