@@ -62,7 +62,7 @@ twink.onInvited(function(roomId) {
 // Monday morning schedule reminder
 schedule.scheduleJob({ "dayOfWeek": 1, "hour": 7, "minute": 30 }, function() {
   // Grab the current chores list from the API
-  request('https://api.uptwinkles.org/chores/now', function(error, response, body) {
+  request('https://api.uptwinkles.co/chores/now', function(error, response, body) {
     if (!error && response.statusCode == 200) {
       // If there wasn't an error, generate and send the message
       var chores = JSON.parse(body)
@@ -80,7 +80,7 @@ schedule.scheduleJob({ "dayOfWeek": 1, "hour": 7, "minute": 30 }, function() {
 
 // Cooking dinner
 schedule.scheduleJob({ "hour": 16, "minute": 0 }, function() {
-  request('https://api.uptwinkles.org/dinner', function(error, response, body) {
+  request('https://api.uptwinkles.co/dinner', function(error, response, body) {
     if (!error && response.statusCode == 200) {
       let data = JSON.parse(body)
       twink.send(`What's for dinner tonight, and who's cooking? Would ${data.person} be willing to cook ${data.dinner}?`)
