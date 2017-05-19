@@ -110,7 +110,7 @@ twink.remind({ "dayOfWeek": 5, "hour": 19, "minute": 0 },
 
 // Weekly check-in
 twink.remind({ "dayOfWeek": 2, "hour": 20, "minute": 0 },
-  "Whaddup, fam‽ It's time for our weekly check-in. What is the progress on our kanban board?\n\nhttps://board.uptwinkles.co/b/ffNduJZK6weDPaqDt/uptwinkles\n\nI suggest meeting up if there's a lot to cover. Let's make sure everyone is assigned to something and the cards reflect our current state of being. Y'all are my favourite humans. Peace. ✌️"
+  "It's time for our weekly check-in! What is the progress on our kanban board?\n\nhttps://board.uptwinkles.co/b/ffNduJZK6weDPaqDt/uptwinkles\n\nI suggest meeting up if there's a lot to cover. Let's make sure everyone is assigned to something and the cards reflect our current state of being. Thanks!"
 )
 
 /*******************************************************************************
