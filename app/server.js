@@ -103,6 +103,11 @@ twink.remind({ "dayOfWeek": 1, "hour": 10, "minute": 0 },
   "Don't forget to take in the trash!"
 )
 
+//Ordering Groceries
+twink.remind({ "dayOfWeek": 5, "hour": 19, "minute": 0 },
+  "Don't forget to order groceries! Check the Wekan Grocery List for items \n\nhttps://board.uptwinkles.co/b/ffNduJZK6weDPaqDt/uptwinkles\n\n. If we need a lot, we should do a Fresh Grocer order. Otherwise, let's pick up produce this week. Who can take charge of doing this?"
+)
+
 // Weekly check-in
 twink.remind({ "dayOfWeek": 2, "hour": 20, "minute": 0 },
   "Whaddup, fam‽ It's time for our weekly check-in. What is the progress on our kanban board?\n\nhttps://board.uptwinkles.co/b/ffNduJZK6weDPaqDt/uptwinkles\n\nI suggest meeting up if there's a lot to cover. Let's make sure everyone is assigned to something and the cards reflect our current state of being. Y'all are my favourite humans. Peace. ✌️"
