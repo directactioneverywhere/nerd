@@ -95,6 +95,11 @@ twink.remind({ "hour": 19, "minute": 0 },
   "Time to do the dishes!"
 )
 
+// Watering Plants
+twink.remind({ "hour": 7, "minute": 0 },
+  "Don't forget to water the garden this morning! If it will be over 27 C (80 F), please water the garden in the afternoon between 1-3pm. Will there be anyone home for an afternoon water if necessary?"
+)
+
 // Taking the trash out and back in
 twink.remind({ "dayOfWeek": 0, "hour": 20, "minute": 0 },
   "Don't forget to take out the trash!"
@@ -103,7 +108,7 @@ twink.remind({ "dayOfWeek": 1, "hour": 10, "minute": 0 },
   "Don't forget to take in the trash!"
 )
 
-//Ordering Groceries
+// Ordering Groceries
 twink.remind({ "dayOfWeek": 5, "hour": 19, "minute": 0 },
   "Don't forget to order groceries! Check the Wekan Grocery List for items \n\nhttps://board.uptwinkles.co/b/ffNduJZK6weDPaqDt/uptwinkles\n\n. If we need a lot, we should do a Fresh Grocer order. Otherwise, let's pick up produce this week. Who can take charge of doing this?"
 )
