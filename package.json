@@ -21,6 +21,7 @@
     "matrix-js-sdk": "^0.7.7-rc.1",
     "node-schedule": "^1.2.1",
     "random-item": "^1.0.0",
-    "request": "^2.81.0"
+    "request": "^2.81.0",
+    "weather-js": "^2.0.0"
   }
 }

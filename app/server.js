@@ -11,6 +11,7 @@ const twink      = require("./twink")
 const randomItem = require("random-item")
 const schedule   = require("node-schedule")
 const request    = require("request")
+const weather    = require("weather-js")
 
 /*******************************************************************************
 * Store some values to shuffle through
@@ -96,10 +97,22 @@ twink.remind({ "hour": 19, "minute": 0 },
   "Time to do the dishes!"
 )
 
-// Watering Plants
-twink.remind({ "hour": 7, "minute": 0 },
-  "Don't forget to water the garden this morning! If it will be over 27 C (80 F), please water the garden in the afternoon between 1-3pm. Will there be anyone home for an afternoon water if necessary?"
-)
+// Watering plants
+schedule.scheduleJob({ "hour": 7, "minute": 0 }, function() {
+  weather.find({search: process.env['ZIP_CODE'], degreeType: 'C'}, function(err, result) {
+    let temperature = result[0].current.temperature
+    if (err) {
+      twink.send("Don't forget to water the garden this morning! If it's hot outside, please water the garden in the afternoon between 1–3pm. Will there be anyone home for an afternoon water if necessary?\n\nI had trouble getting info about the weather. It said: " + err)
+      return
+    }
+    // Hotter than 27 degrees
+    if (temperature >= 27) {
+      twink.send("Don't forget to water the garden this morning! It's hot outside, so please water the garden in the afternoon between 1–3pm, too. Who can do the afternoon water?")
+    } else {
+      twink.send("Don't forget to water the garden this morning!")
+    }
+  })
+})
 
 // Taking the trash out and back in
 twink.remind({ "dayOfWeek": 0, "hour": 20, "minute": 0 },
