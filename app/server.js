@@ -25,7 +25,8 @@ var greetings = [
   "Did someone say my name?",
   "God isn't real.",
   "I'm having a great day today, how about you?",
-  "Life is full of pain."
+  "Life is full of pain.",
+  "Kill all humans."
 ]
 
 /*******************************************************************************
