@@ -83,6 +83,12 @@ function start() {
   matrixClient.startClient()
 }
 
+// Determines monthly house code
+function generateHouseCode() {
+  var newCode = Math.floor((Math.random() * 1000000))
+  return newCode
+}
+
 /*******************************************************************************
 * Export as a module
 *******************************************************************************/
@@ -97,5 +103,6 @@ module.exports = {
   sendToRoom: sendToRoom,
   onInvited: onInvited,
   joinRoom: joinRoom,
-  start: start
+  start: start,
+  generateHouseCode: generateHouseCode
 }

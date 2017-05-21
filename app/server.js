@@ -132,6 +132,13 @@ twink.remind({ "dayOfWeek": 2, "hour": 20, "minute": 0 },
   "It's time for our weekly check-in! What is the progress on our kanban board?\n\nhttps://board.uptwinkles.co/b/ffNduJZK6weDPaqDt/uptwinkles\n\nI suggest meeting up if there's a lot to cover. Let's make sure everyone is assigned to something and the cards reflect our current state of being. Thanks!"
 )
 
+// Monthly House code
+schedule.scheduleJob({ "dayOfMonth": 1, "hour": 6, "minute": 30 }, function() {
+  let code = twink.generateHouseCode()
+  twink.send(`Time to change the locks! The new house code is: ${code}. Who can set the lock this morning?`)
+})
+
+
 /*******************************************************************************
 * Start Twink
 *******************************************************************************/
