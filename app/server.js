@@ -133,7 +133,7 @@ twink.remind({ "dayOfWeek": 2, "hour": 20, "minute": 0 },
 )
 
 // Monthly House code
-schedule.scheduleJob({ "dayOfMonth": 1, "hour": 6, "minute": 30 }, function() {
+schedule.scheduleJob({ "date": 1, "hour": 6, "minute": 30 }, function() {
   let code = twink.generateHouseCode()
   twink.send(`Time to change the locks! The new house code is: ${code}. Who can set the lock this morning?`)
 })
