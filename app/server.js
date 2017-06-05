@@ -12,6 +12,7 @@ const randomItem = require("random-item")
 const schedule   = require("node-schedule")
 const request    = require("request")
 const weather    = require("weather-js")
+const dateFormat = require("dateformat")
 
 /*******************************************************************************
 * Store some values to shuffle through
@@ -63,14 +64,15 @@ twink.onInvited(function(roomId) {
 
 // Monday morning schedule reminder
 schedule.scheduleJob({ "dayOfWeek": 1, "hour": 7, "minute": 30 }, function() {
+  var today = dateFormat(new Date(), "yyyy-mm-dd")
   // Grab the current chores list from the API
-  request('https://api.uptwinkles.co/chores/now', function(error, response, body) {
+  request(`https://api.uptwinkles.co/chore-assignments/${today}?format=json`, function(error, response, body) {
     if (!error && response.statusCode == 200) {
       // If there wasn't an error, generate and send the message
-      var chores = JSON.parse(body)
+      var chores = JSON.parse(body).assignments
       var message = "Morning, comrades! It's that time of the week again. Here are your newly assigned chores:\n"
       for (var chore of chores) {
-        message += `\n${chore.person} is assigned to ${chore.chore}.`
+        message += `\n${chore.person.first_name} is assigned to ${chore.chore.name}.`
       }
       twink.send(message)
     } else {
@@ -82,10 +84,11 @@ schedule.scheduleJob({ "dayOfWeek": 1, "hour": 7, "minute": 30 }, function() {
 
 // Cooking dinner
 schedule.scheduleJob({ "hour": 16, "minute": 0 }, function() {
-  request('https://api.uptwinkles.co/dinner', function(error, response, body) {
+  var today = dateFormat(new Date(), "yyyy-mm-dd")
+  request(`https://api.uptwinkles.co/dinner-assignments/${today}?format=json`, function(error, response, body) {
     if (!error && response.statusCode == 200) {
       let data = JSON.parse(body)
-      twink.send(`What's for dinner tonight, and who's cooking? Would ${data.person} be willing to cook ${data.dinner}?`)
+      twink.send(`What's for dinner tonight, and who's cooking? Would ${data.person.first_name} be willing to cook ${data.meal.name}?`)
     } else {
       twink.send(`What's for dinner tonight, and who's cooking? BTW, I got a ${response.statusCode} error from the API, plz advise!`)
     }
