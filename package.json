@@ -1,28 +1,26 @@
 {
-  "name": "twink",
+  "name": "nerd",
   "version": "0.1.0",
-  "description": "Uptwinkles chore reminder Matrix chatbot.",
+  "description": "DxE Tech Matrix chatbot.",
   "main": "app/server.js",
   "scripts": {
     "start": "./node_modules/.bin/forever app/server.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Uptwinkles/twink.git"
+    "url": "git+https://github.com/directactioneverywhere/nerd.git"
   },
   "author": "Alex Gleason",
   "license": "GPL-3.0",
   "bugs": {
-    "url": "https://github.com/Uptwinkles/twink/issues"
+    "url": "https://github.com/directactioneverywhere/nerd/issues"
   },
-  "homepage": "https://github.com/Uptwinkles/twink#readme",
+  "homepage": "https://github.com/directactioneverywhere/nerd#readme",
   "dependencies": {
-    "dateformat": "^2.0.0",
     "forever": "^0.15.3",
     "matrix-js-sdk": "^0.7.7-rc.1",
     "node-schedule": "^1.2.1",
     "random-item": "^1.0.0",
-    "request": "^2.81.0",
-    "weather-js": "^2.0.0"
+    "request": "^2.81.0"
   }
 }

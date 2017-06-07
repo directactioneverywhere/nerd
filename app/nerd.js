@@ -5,13 +5,13 @@ const matrixSdk = require('matrix-js-sdk')
 * Matrix connect
 *******************************************************************************/
 
-const uptwinklesRoomId = '!nnlRHmvXFdtWqVHmxF:matrix.org'
-const twinkUserId      = '@twink:matrix.org'
+const dxetechRoomId = '!NEvbMnDonJFUuaxsuw:matrix.org'
+const nerdUserId    = '@dxetech_nerd:matrix.org'
 
 var matrixClient = matrixSdk.createClient({
     baseUrl: 'https://matrix.org',
     accessToken: process.env['MATRIX_ACCESS_TOKEN'],
-    userId: twinkUserId
+    userId: nerdUserId
 })
 
 /*******************************************************************************
@@ -20,7 +20,7 @@ var matrixClient = matrixSdk.createClient({
 
 // Messages any Matrix room
 function sendToRoom(roomId, message) {
-  // 2 second delay in messages so it shows Twink "typing"
+  // 2 second delay in messages so it shows Nerd "typing"
   const typingTime = 2000
   matrixClient.sendTyping(roomId, true, typingTime, function() {
     setTimeout(function() {
@@ -33,9 +33,9 @@ function sendToRoom(roomId, message) {
   })
 }
 
-// Messages the Uptwinkles room
+// Messages the DxE Tech room
 function send(message) {
-  sendToRoom(uptwinklesRoomId, message)
+  sendToRoom(dxetechRoomId, message)
 }
 
 // Joins any Matrix room
@@ -50,8 +50,8 @@ function onMessage(callback) {
   matrixClient.once('sync', function(state, prevState) {
     if (state === 'PREPARED') {
       matrixClient.on("Room.timeline", function(event, room, toStartOfTimeline) {
-        if (toStartOfTimeline || event.getSender() === twinkUserId) {
-          return // Ignore Twink's own messages
+        if (toStartOfTimeline || event.getSender() === nerdUserId) {
+          return // Ignore Nerd's own messages
         }
         if (event.getType() !== "m.room.message") {
           return // Only respond to normal messages
@@ -65,7 +65,7 @@ function onMessage(callback) {
 // Provides a callback to handle room invitations
 function onInvited(callback) {
   matrixClient.on("RoomMember.membership", function(event, member) {
-    if (member.membership === "invite" && member.userId === twinkUserId) {
+    if (member.membership === "invite" && member.userId === nerdUserId) {
       callback(member.roomId)
     }
   })
@@ -78,15 +78,9 @@ function remind(frequency, message) {
   })
 }
 
-// Starts Twink
+// Starts Nerd
 function start() {
   matrixClient.startClient()
-}
-
-// Determines monthly house code
-function generateHouseCode() {
-  var newCode = Math.floor((Math.random() * 1000000))
-  return newCode
 }
 
 /*******************************************************************************
@@ -94,8 +88,8 @@ function generateHouseCode() {
 *******************************************************************************/
 
 module.exports = {
-  uptwinklesRoomId: uptwinklesRoomId,
-  twinkUserId: twinkUserId,
+  dxetechRoomId: dxetechRoomId,
+  nerdUserId: nerdUserId,
 
   onMessage: onMessage,
   remind: remind,
@@ -103,6 +97,5 @@ module.exports = {
   sendToRoom: sendToRoom,
   onInvited: onInvited,
   joinRoom: joinRoom,
-  start: start,
-  generateHouseCode: generateHouseCode
+  start: start
 }
